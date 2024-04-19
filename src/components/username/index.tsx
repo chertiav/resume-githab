@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { TextField, Typography } from '@mui/material';
 //========================================
 import { useStyles } from './styles';
@@ -7,8 +7,8 @@ import AppLoadingButton from '../loading-button';
 
 const UserName: React.FC<IPropsUserName> = (
 	props: IPropsUserName,
-): React.JSX.Element => {
-	const { register, loading } = props;
+): ReactElement => {
+	const { register, errors, loading } = props;
 	const { classes } = useStyles();
 
 	return (
@@ -20,11 +20,13 @@ const UserName: React.FC<IPropsUserName> = (
 				Enter GitHub username
 			</Typography>
 			<TextField
+				error={!!errors.username}
 				fullWidth={true}
 				margin="normal"
 				label="username"
 				variant="outlined"
 				placeholder="Enter your username"
+				helperText={errors.username ? `${errors.username.message}` : ''}
 				{...register('username')}
 			/>
 			<AppLoadingButton
