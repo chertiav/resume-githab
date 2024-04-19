@@ -1,5 +1,5 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 
-const User: React.FC = (): React.JSX.Element => <div>User</div>;
+const User: React.FC = (): ReactElement => <div>User</div>;
 
 export default User;

@@ -1,22 +1,34 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useNavigate } from 'react-router-dom';
+import { Box } from '@mui/material';
 //========================
 import { useStyles } from './styles';
-import { Box } from '@mui/material';
 import UserName from '../../components/username';
-import { IUser } from '../../common/types/home';
+import { UsernameSchema } from '../../utils/yup';
+import { useAppDispatch, useAppSelector } from '../../utils/hook';
+import { getDataUser } from '../../store/thunks/user';
 
-const Home: React.FC = (): React.JSX.Element => {
+const Home: React.FC = (): ReactElement => {
 	const { classes } = useStyles();
-	const { register, handleSubmit } = useForm();
-	const loading = false;
+	const {
+		register,
+		formState: { errors },
+		handleSubmit,
+	} = useForm({
+		resolver: yupResolver(UsernameSchema),
+	});
+	const navigate = useNavigate();
+	const dispatch = useAppDispatch();
+	const loading = useAppSelector((state) => state.user.isLoading);
 
 	const handleSubmitForm = async (data: any) => {
 		try {
-			const response: Response = await fetch(
-				`https://api.github.com/users/${data.username}`,
-			);
-			const userData: IUser = await response.json();
+			await dispatch(getDataUser(data));
+			if (!loading) {
+				navigate(data.username);
+			}
 		} catch (e) {
 			console.log(e);
 		}
@@ -26,7 +38,7 @@ const Home: React.FC = (): React.JSX.Element => {
 		<div className={classes.root}>
 			<form className={classes.form} onSubmit={handleSubmit(handleSubmitForm)}>
 				<Box className={classes.container}>
-					<UserName register={register} loading={loading} />
+					<UserName register={register} errors={errors} loading={loading} />
 				</Box>
 			</form>
 		</div>
