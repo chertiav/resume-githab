@@ -7,6 +7,7 @@ import { Box } from '@mui/material';
 import { useStyles } from './styles';
 import UserName from '../../components/username';
 import { UsernameSchema } from '../../utils/yup';
+import { showError } from '../../utils/errors';
 import { useAppDispatch, useAppSelector } from '../../utils/hook';
 import { getDataUser } from '../../store/thunks/user';
 
@@ -30,7 +31,7 @@ const Home: React.FC = (): ReactElement => {
 				navigate(data.username);
 			}
 		} catch (e) {
-			console.log(e);
+			showError(e);
 		}
 	};
 

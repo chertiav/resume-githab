@@ -1,19 +1,22 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
+//=====================================================
 import { IUsernameData } from '../../../common/types/home';
+import { IUser } from '../../../common/types/user';
 import { instance } from '../../../utils/axios';
+import { showError } from '../../../utils/errors';
 
 export const getDataUser = createAsyncThunk(
 	'/',
-	async (userNameData: IUsernameData, { rejectWithValue }) => {
+	async (userNameData: IUsernameData) => {
 		try {
-			const data = await instance.get(userNameData.username);
-			return data.data;
-		} catch (error: any) {
-			if (error.response && error.data.message) {
-				return rejectWithValue(error.data.message);
-			} else {
-				return rejectWithValue(error.message);
-			}
+			const { data }: { data: IUser } = await instance.get(
+				userNameData.username,
+			);
+			sessionStorage.setItem('username', data.login);
+			return data;
+		} catch (e: any) {
+			sessionStorage.removeItem('username');
+			showError(e);
 		}
 	},
 );

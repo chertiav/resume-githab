@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+//========================================================
 import { getDataUser } from '../../thunks/user';
 import { IUserState } from '../../../common/types/user';
 
@@ -12,14 +13,14 @@ export const userSlice = createSlice({
 	initialState,
 	reducers: {},
 	extraReducers: (builder) => {
-		builder.addCase(getDataUser.pending, (state, action) => {
+		builder.addCase(getDataUser.pending, (state) => {
 			state.isLoading = true;
 		});
 		builder.addCase(getDataUser.fulfilled, (state, action) => {
 			state.userData = action.payload;
 			state.isLoading = false;
 		});
-		builder.addCase(getDataUser.rejected, (state, action) => {
+		builder.addCase(getDataUser.rejected, (state) => {
 			state.isLoading = false;
 		});
 	},
