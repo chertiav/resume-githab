@@ -34,6 +34,29 @@ export interface IUser {
 }
 
 export interface IUserState {
-	userData: any;
+	userData: IUser;
 	isLoading: boolean;
+}
+
+export interface IRepository {
+	id: number;
+	name: string;
+	private: boolean;
+	html_url: string;
+	languages_url: string;
+	created_at: string;
+	updated_at: string;
+	pushed_at: string;
+}
+
+export interface ILanguage {
+	language: string;
+	byte: number;
+	percent: number;
+}
+
+export interface IRepositoriesState {
+	repos: IRepository[];
+	languages: ILanguage[];
+	isLoadingRepos: boolean;
 }
