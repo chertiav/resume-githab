@@ -8,9 +8,10 @@ import { useStyles } from './styles';
 import UserName from '../../components/username';
 import { UsernameSchema } from '../../utils/yup';
 import { showError } from '../../utils/errors';
-import { useAppDispatch, useAppSelector } from '../../utils/hook';
+import { useAppDispatch, useAppSelector, useTitle } from '../../utils/hook';
 import { getDataUser } from '../../store/thunks/user';
 import ThemeSwitcherComponent from '../../components/theme-switcer';
+import { NAME_APP } from '../../constants';
 
 const Home: React.FC = (): ReactElement => {
 	const { classes } = useStyles();
@@ -35,6 +36,7 @@ const Home: React.FC = (): ReactElement => {
 			showError(e);
 		}
 	};
+	useTitle(NAME_APP);
 
 	return (
 		<div className={classes.root}>

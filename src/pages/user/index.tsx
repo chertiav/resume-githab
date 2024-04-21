@@ -2,9 +2,15 @@ import React, { ReactElement, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 //======================================================
 import { getDataUser } from '../../store/thunks/user';
-import { useAppDispatch, useAppSelector, useValidName } from '../../utils/hook';
+import {
+	useAppDispatch,
+	useAppSelector,
+	useTitle,
+	useValidName,
+} from '../../utils/hook';
 import { showError } from '../../utils/errors';
 import { IUsernameData } from '../../common/types/home';
+import { NAME_APP } from '../../constants';
 
 const User: React.FC = (): ReactElement => {
 	const { username } = useParams();
@@ -27,6 +33,8 @@ const User: React.FC = (): ReactElement => {
 	useEffect((): void => {
 		if (!validName) navigate('/');
 	}, [validName, navigate]);
+
+	useTitle(NAME_APP + `${userData?.login ? `: ${userData?.login}` : ''}`);
 
 	return <div>{userData?.login}</div>;
 };
