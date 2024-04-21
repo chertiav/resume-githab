@@ -20,6 +20,7 @@ const UserName: React.FC<IPropsUserName> = (
 				Enter GitHub username
 			</Typography>
 			<TextField
+				className={classes.input}
 				error={!!errors.username}
 				fullWidth={true}
 				margin="normal"

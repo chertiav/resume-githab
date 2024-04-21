@@ -10,6 +10,7 @@ import { UsernameSchema } from '../../utils/yup';
 import { showError } from '../../utils/errors';
 import { useAppDispatch, useAppSelector } from '../../utils/hook';
 import { getDataUser } from '../../store/thunks/user';
+import ThemeSwitcherComponent from '../../components/theme-switcer';
 
 const Home: React.FC = (): ReactElement => {
 	const { classes } = useStyles();
@@ -39,6 +40,9 @@ const Home: React.FC = (): ReactElement => {
 		<div className={classes.root}>
 			<form className={classes.form} onSubmit={handleSubmit(handleSubmitForm)}>
 				<Box className={classes.container}>
+					<Box className={classes.header}>
+						<ThemeSwitcherComponent />
+					</Box>
 					<UserName register={register} errors={errors} loading={loading} />
 				</Box>
 			</form>
