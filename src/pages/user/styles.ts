@@ -20,7 +20,7 @@ export const useStyle = makeStyles()((theme) => {
 			}`,
 			marginBottom: '32px',
 			paddingBottom: '32px',
-			maxWidth: '1080px',
+			maxWidth: '980px',
 			border: `1px solid ${colors.borderColor}`,
 			borderRadius: '12px',
 			'& .MuiPaper-root': {

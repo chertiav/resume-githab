@@ -1,6 +1,6 @@
 import React, { ReactElement, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { Grid, Typography } from '@mui/material';
+import { Grid } from '@mui/material';
 //======================================================
 import { getDataUser } from '../../store/thunks/user';
 import { getUsersRepositories } from '../../store/thunks/repositories';
@@ -11,12 +11,13 @@ import {
 	useValidName,
 } from '../../utils/hook';
 import { IUsernameData } from '../../common/types/home';
-import { IUser } from '../../common/types/user';
+import { ILanguage, IRepository, IUser } from '../../common/types/user';
 import { NAME_APP } from '../../constants';
 import { showError } from '../../utils/errors';
 import { useStyle } from './styles';
 import PercentLanguageComponent from '../../components/percent-langueges';
 import ResumeHeaderComponent from '../../components/resume-header';
+import ListRepoComponent from '../../components/list-repo';
 
 const User: React.FC = (): ReactElement | null => {
 	const { username } = useParams();
@@ -27,8 +28,8 @@ const User: React.FC = (): ReactElement | null => {
 		languages,
 		isLoadingRepos,
 	}: {
-		repos: any[];
-		languages: any[];
+		repos: IRepository[];
+		languages: ILanguage[];
 		isLoadingRepos: boolean;
 	} = useAppSelector((state) => state.repositories);
 	const dispatch = useAppDispatch();
@@ -73,9 +74,7 @@ const User: React.FC = (): ReactElement | null => {
 					<PercentLanguageComponent languages={languages} />
 				</Grid>
 				<Grid item xs={12} md={9}>
-					<Typography variant="h3" marginBottom={1}>
-						List of the last ten updated repositories
-					</Typography>
+					<ListRepoComponent repos={repos} />
 				</Grid>
 			</Grid>
 		</Grid>

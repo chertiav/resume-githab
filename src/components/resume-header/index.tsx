@@ -6,7 +6,7 @@ const ResumeHeaderComponent: React.FC<any> = (props: any): ReactElement => {
 	const { userData } = props;
 
 	return (
-		<Box>
+		<Box padding={1}>
 			<Typography variant="h1" marginBottom={3}>
 				{userData.name}
 			</Typography>
