@@ -2,6 +2,7 @@ import React, { ReactElement, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Grid } from '@mui/material';
 //======================================================
+import { useStyle } from './styles';
 import { getDataUser } from '../../store/thunks/user';
 import { getUsersRepositories } from '../../store/thunks/repositories';
 import {
@@ -14,10 +15,10 @@ import { IUsernameData } from '../../common/types/home';
 import { ILanguage, IRepository, IUser } from '../../common/types/user';
 import { NAME_APP } from '../../constants';
 import { showError } from '../../utils/errors';
-import { useStyle } from './styles';
 import PercentLanguageComponent from '../../components/percent-langueges';
 import ResumeHeaderComponent from '../../components/resume-header';
 import ListRepoComponent from '../../components/list-repo';
+import CircularIndeterminate from '../../components/circularIndeterminate';
 
 const User: React.FC<any> = (props: any): ReactElement | null => {
 	const { componentRef } = props;
@@ -58,7 +59,7 @@ const User: React.FC<any> = (props: any): ReactElement | null => {
 
 	useTitle(NAME_APP + `${userData?.login ? `: ${userData?.login}` : ''}`);
 
-	return validName && !isLoading ? (
+	return (
 		<Grid className={classes.root}>
 			<Grid
 				className={classes.resumeBlock}
@@ -67,28 +68,40 @@ const User: React.FC<any> = (props: any): ReactElement | null => {
 				ref={componentRef}
 				padding={1}
 			>
-				<Grid item xs={12} md={3}>
-					<img
-						className={classes.photoUrl}
-						src={userData.avatar_url}
-						alt={'avatar_url'}
-					/>
-				</Grid>
-				<Grid item xs={12} md={9}>
-					<ResumeHeaderComponent userData={userData} />
-				</Grid>
-				<Grid item xs={12} md={3}>
-					<PercentLanguageComponent languages={languages} />
-				</Grid>
-				<Grid item xs={12} md={9}>
-					<ListRepoComponent repos={repos} />
-				</Grid>
+				{isLoading ? (
+					<Grid item xs={12} md={12}>
+						<CircularIndeterminate />
+					</Grid>
+				) : (
+					<>
+						<Grid item xs={12} md={3}>
+							<img
+								className={classes.photoUrl}
+								src={userData.avatar_url}
+								alt={'avatar_url'}
+							/>
+						</Grid>
+						<Grid item xs={12} md={9}>
+							<ResumeHeaderComponent userData={userData} />
+						</Grid>
+					</>
+				)}
+				{isLoadingRepos ? (
+					<Grid item xs={12} md={12}>
+						<CircularIndeterminate />
+					</Grid>
+				) : (
+					<>
+						<Grid item xs={12} md={3}>
+							<PercentLanguageComponent languages={languages} />
+						</Grid>
+						<Grid item xs={12} md={9}>
+							<ListRepoComponent repos={repos} />
+						</Grid>
+					</>
+				)}
 			</Grid>
 		</Grid>
-	) : (
-		<>
-			<div>Loading...</div>
-		</>
 	);
 };
 
