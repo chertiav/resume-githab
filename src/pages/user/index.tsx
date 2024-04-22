@@ -19,7 +19,8 @@ import PercentLanguageComponent from '../../components/percent-langueges';
 import ResumeHeaderComponent from '../../components/resume-header';
 import ListRepoComponent from '../../components/list-repo';
 
-const User: React.FC = (): ReactElement | null => {
+const User: React.FC<any> = (props: any): ReactElement | null => {
+	const { componentRef } = props;
 	const { username } = useParams();
 	const { userData, isLoading }: { userData: IUser; isLoading: boolean } =
 		useAppSelector((state) => state.user);
@@ -59,7 +60,13 @@ const User: React.FC = (): ReactElement | null => {
 
 	return validName && !isLoading ? (
 		<Grid className={classes.root}>
-			<Grid className={classes.resumeBlock} container spacing={2}>
+			<Grid
+				className={classes.resumeBlock}
+				container
+				spacing={2}
+				ref={componentRef}
+				padding={1}
+			>
 				<Grid item xs={12} md={3}>
 					<img
 						className={classes.photoUrl}

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { CssBaseline, ThemeProvider } from '@mui/material';
 import { ToastContainer } from 'react-toastify';
@@ -9,9 +9,15 @@ import User from './pages/user';
 import Home from './pages/home';
 import PrivateRoute from './utils/router/privateRoute';
 import { ColorModeContext, useMode } from './theme';
+import { useReactToPrint } from 'react-to-print';
 
 function App(): React.JSX.Element {
 	const [theme, colorMode] = useMode();
+	const componentRef = useRef(null);
+	const handlePrint = useReactToPrint({
+		content: () => componentRef.current,
+	});
+
 	return (
 		<ColorModeContext.Provider value={colorMode}>
 			<ThemeProvider theme={theme}>
@@ -25,9 +31,12 @@ function App(): React.JSX.Element {
 				/>
 				<CssBaseline />
 				<Routes>
-					<Route element={<LayoutComponent />}>
+					<Route element={<LayoutComponent handlePrint={handlePrint} />}>
 						<Route element={<PrivateRoute />}>
-							<Route path=":username" element={<User />} />
+							<Route
+								path=":username"
+								element={<User componentRef={componentRef} />}
+							/>
 						</Route>
 						<Route path="/" element={<Home />} />
 					</Route>
