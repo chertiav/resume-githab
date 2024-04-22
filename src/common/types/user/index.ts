@@ -60,3 +60,11 @@ export interface IRepositoriesState {
 	languages: ILanguage[];
 	isLoadingRepos: boolean;
 }
+
+export interface ITablePercentData {
+	languages: ILanguage[];
+}
+
+export interface IListRepo {
+	repos: IRepository[];
+}

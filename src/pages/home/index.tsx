@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { Box } from '@mui/material';
 //========================
 import { useStyles } from './styles';
-import UserName from '../../components/username';
+import UserNameComponent from '../../components/username';
 import { UsernameSchema } from '../../utils/yup';
 import { showError } from '../../utils/errors';
 import { useAppDispatch, useAppSelector, useTitle } from '../../utils/hook';
@@ -45,7 +45,11 @@ const Home: React.FC = (): ReactElement => {
 					<Box className={classes.header}>
 						<ThemeSwitcherComponent />
 					</Box>
-					<UserName register={register} errors={errors} loading={loading} />
+					<UserNameComponent
+						register={register}
+						errors={errors}
+						loading={loading}
+					/>
 				</Box>
 			</form>
 		</div>

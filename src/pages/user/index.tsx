@@ -1,18 +1,23 @@
 import React, { ReactElement, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { Grid } from '@mui/material';
 //======================================================
 import { getDataUser } from '../../store/thunks/user';
+import { getUsersRepositories } from '../../store/thunks/repositories';
 import {
 	useAppDispatch,
 	useAppSelector,
 	useTitle,
 	useValidName,
 } from '../../utils/hook';
-import { showError } from '../../utils/errors';
 import { IUsernameData } from '../../common/types/home';
+import { ILanguage, IRepository, IUser } from '../../common/types/user';
 import { NAME_APP } from '../../constants';
-import { IUser } from '../../common/types/user';
-import { getUsersRepositories } from '../../store/thunks/repositories';
+import { showError } from '../../utils/errors';
+import { useStyle } from './styles';
+import PercentLanguageComponent from '../../components/percent-langueges';
+import ResumeHeaderComponent from '../../components/resume-header';
+import ListRepoComponent from '../../components/list-repo';
 
 const User: React.FC = (): ReactElement | null => {
 	const { username } = useParams();
@@ -23,13 +28,14 @@ const User: React.FC = (): ReactElement | null => {
 		languages,
 		isLoadingRepos,
 	}: {
-		repos: any[];
-		languages: any[];
+		repos: IRepository[];
+		languages: ILanguage[];
 		isLoadingRepos: boolean;
 	} = useAppSelector((state) => state.repositories);
 	const dispatch = useAppDispatch();
 	const validName = useValidName();
 	const navigate = useNavigate();
+	const { classes } = useStyle();
 
 	useEffect((): void => {
 		const fetchUserData = async (): Promise<void> => {
@@ -52,12 +58,26 @@ const User: React.FC = (): ReactElement | null => {
 	useTitle(NAME_APP + `${userData?.login ? `: ${userData?.login}` : ''}`);
 
 	return validName && !isLoading ? (
-		<>
-			<div>name: {userData?.name}</div>
-			<div>avatar_url: {userData?.avatar_url}</div>
-			<div>public_repos: {userData?.public_repos}</div>
-			<div>created_at: {userData?.created_at}</div>
-		</>
+		<Grid className={classes.root}>
+			<Grid className={classes.resumeBlock} container spacing={2}>
+				<Grid item xs={12} md={3}>
+					<img
+						className={classes.photoUrl}
+						src={userData.avatar_url}
+						alt={'avatar_url'}
+					/>
+				</Grid>
+				<Grid item xs={12} md={9}>
+					<ResumeHeaderComponent userData={userData} />
+				</Grid>
+				<Grid item xs={12} md={3}>
+					<PercentLanguageComponent languages={languages} />
+				</Grid>
+				<Grid item xs={12} md={9}>
+					<ListRepoComponent repos={repos} />
+				</Grid>
+			</Grid>
+		</Grid>
 	) : (
 		<>
 			<div>Loading...</div>
