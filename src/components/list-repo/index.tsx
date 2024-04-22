@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { Divider, Link, Stack, Typography } from '@mui/material';
 //=========================================================
 import { IListRepo } from '../../common/types/user';
@@ -14,7 +14,7 @@ const ListRepoComponent: React.FC<IListRepo> = (props: IListRepo) => {
 			<Divider />
 			{repos.slice(0, 10).map((element) => {
 				return (
-					<>
+					<Fragment key={element.id}>
 						<Stack marginBottom={1} padding={1} alignItems={'baseline'}>
 							<Link href={element.html_url} marginRight={1}>
 								{element.name}
@@ -29,7 +29,7 @@ const ListRepoComponent: React.FC<IListRepo> = (props: IListRepo) => {
 							</Typography>
 						</Stack>
 						<Divider />
-					</>
+					</Fragment>
 				);
 			})}
 		</>
