@@ -65,8 +65,8 @@ const User: React.FC<any> = (props: any): ReactElement | null => {
 				className={classes.resumeBlock}
 				container
 				spacing={2}
-				ref={componentRef}
 				padding={1}
+				ref={componentRef}
 			>
 				{isLoading ? (
 					<Grid item xs={12} md={12}>
@@ -77,7 +77,7 @@ const User: React.FC<any> = (props: any): ReactElement | null => {
 						<Grid item xs={12} md={3}>
 							<img
 								className={classes.photoUrl}
-								src={userData.avatar_url}
+								src={userData?.avatar_url}
 								alt={'avatar_url'}
 							/>
 						</Grid>

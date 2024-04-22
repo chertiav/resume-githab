@@ -8,19 +8,19 @@ const ResumeHeaderComponent: React.FC<any> = (props: any): ReactElement => {
 	return (
 		<Box padding={1}>
 			<Typography variant="h1" marginBottom={3}>
-				{userData.name}
+				{userData?.name}
 			</Typography>
 			<Typography variant="h2" marginBottom={2}>
-				On GitHub since {getYear(userData.created_at)}
+				On GitHub since {getYear(userData?.created_at)}
 			</Typography>
 			<Typography variant="h3" marginBottom={2}>
-				{userData.public_repos} public repositories
+				{userData?.public_repos} public repositories
 			</Typography>
 			<Typography variant="h4" marginBottom={2}>
 				This résumé is generated automatically using public information from the
 				developer's GitHub account. The repositories are ordered by last updated
 				date. Do not hesitate to visit
-				<Link href={userData.html_url}> {userData.name} GitHub page </Link>
+				<Link href={userData?.html_url}> {userData?.name} GitHub page </Link>
 				for a complete work history.
 			</Typography>
 		</Box>
