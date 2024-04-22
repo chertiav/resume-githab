@@ -5,7 +5,7 @@ import { useStyles } from './styles';
 import { IPropsUserName } from '../../common/types/home';
 import AppLoadingButton from '../loading-button';
 
-const UserName: React.FC<IPropsUserName> = (
+const UserNameComponent: React.FC<IPropsUserName> = (
 	props: IPropsUserName,
 ): ReactElement => {
 	const { register, errors, loading } = props;
@@ -42,4 +42,4 @@ const UserName: React.FC<IPropsUserName> = (
 	);
 };
 
-export default UserName;
+export default UserNameComponent;

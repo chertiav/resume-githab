@@ -56,10 +56,14 @@ const getStatistic = (languages: {}[]): ILanguage[] => {
 		(sum, element) => sum + element.byte,
 		0,
 	);
-	return sumByteByLanguage.map((element) => ({
-		...element,
-		percent: (element.byte / sumAllByte) * 100,
-	}));
+	return sumByteByLanguage
+		.map((element) => ({
+			...element,
+			percent: (element.byte / sumAllByte) * 100,
+		}))
+		.sort(
+			(nextElement, prevElement) => prevElement.percent - nextElement.percent,
+		);
 };
 
 const getSumByteByLanguage = (

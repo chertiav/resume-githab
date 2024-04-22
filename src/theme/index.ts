@@ -38,6 +38,9 @@ export const tokens = (mode: string) => ({
 				gray: {
 					DEFAULT: '#3C3C3C',
 				},
+				red: {
+					DEFAULT: '#9c042a',
+				},
 				accentMain: '#0F0E0E',
 				borderColor: '#3C3C3C',
 			}
@@ -68,6 +71,9 @@ export const tokens = (mode: string) => ({
 				},
 				gray: {
 					DEFAULT: '#3C3C3C',
+				},
+				red: {
+					DEFAULT: '#9c042a',
 				},
 				accentMain: '#F7F7F7',
 				borderColor: '#D1D1D1',
@@ -124,7 +130,7 @@ export const themeSettings: any = (mode: string) => {
 				fontSize: 18,
 				fontWeight: 'bold',
 			},
-			p: {
+			h4: {
 				fontFamily: ['Poppins', 'sans-serif'].join(','),
 				fontSize: 14,
 				fontWeight: 500,
